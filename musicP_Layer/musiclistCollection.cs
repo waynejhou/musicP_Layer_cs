@@ -117,7 +117,7 @@ namespace musicP_Layer
             switch (StopAction)
             {
                 case StopActionOption.play_next_in_list:
-                    if (playing_song_index != musicfiles.Count - 1)
+                    if (playing_song_index < musicfiles.Count - 1)
                         return musicfiles[++playing_song_index].musicfileinfo;
                     else
                         goto default;

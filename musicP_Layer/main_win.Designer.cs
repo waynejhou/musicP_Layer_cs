@@ -48,16 +48,20 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.listView2 = new System.Windows.Forms.ListView();
             this.l_music = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lrcD_Isplay1 = new lrcP_Layer.LrcD_Isplay();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.m_playing_time_label = new System.Windows.Forms.Label();
             this.m_total_time_label = new System.Windows.Forms.Label();
+            this.m_playing_trackBar = new musicP_Layer.TrackBar_C();
             this.m_title_label = new System.Windows.Forms.Label();
             this.m_artist_label = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.c_play_button = new System.Windows.Forms.Button();
             this.c_stop_button = new System.Windows.Forms.Button();
             this.c_mute_button = new System.Windows.Forms.Button();
+            this.c_volume_trackBar = new musicP_Layer.TrackBar_C();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.開啟ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,8 +70,6 @@
             this.結束ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.file_chooser = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.m_playing_trackBar = new musicP_Layer.TrackBar_C();
-            this.c_volume_trackBar = new musicP_Layer.TrackBar_C();
             this.title_panel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -84,6 +86,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -263,6 +266,7 @@
             // 
             this.tabControl1.Controls.Add(this.tab_pic);
             this.tabControl1.Controls.Add(this.tab_list);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(1);
@@ -350,6 +354,40 @@
             this.l_music.Text = "music";
             this.l_music.Width = 500;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lrcD_Isplay1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(482, 374);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "歌詞";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lrcD_Isplay1
+            // 
+            this.lrcD_Isplay1.BackColor = System.Drawing.Color.Black;
+            this.lrcD_Isplay1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lrcD_Isplay1.ForeColor = System.Drawing.Color.Silver;
+            this.lrcD_Isplay1.HighlightColor = System.Drawing.Color.GreenYellow;
+            this.lrcD_Isplay1.Location = new System.Drawing.Point(3, 3);
+            this.lrcD_Isplay1.lyric = new string[] {
+        "Welcome to LrcD_Isplay",
+        "Here will show out the Lyric"};
+            this.lrcD_Isplay1.maxTime = System.TimeSpan.Parse("00:00:01");
+            this.lrcD_Isplay1.minTime = System.TimeSpan.Parse("00:00:00");
+            this.lrcD_Isplay1.Name = "lrcD_Isplay1";
+            this.lrcD_Isplay1.nowTime = System.TimeSpan.Parse("00:00:00");
+            this.lrcD_Isplay1.Size = new System.Drawing.Size(476, 368);
+            this.lrcD_Isplay1.TabIndex = 0;
+            this.lrcD_Isplay1.Text = "lrcD_Isplay1";
+            this.lrcD_Isplay1.time = new System.TimeSpan[] {
+        System.TimeSpan.Parse("00:00:00"),
+        System.TimeSpan.Parse("00:00:01")};
+            this.lrcD_Isplay1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lrcD_Isplay1_MouseDown);
+            this.lrcD_Isplay1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lrcD_Isplay1_MouseUp);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -407,6 +445,28 @@
             this.m_total_time_label.TabIndex = 1;
             this.m_total_time_label.Text = "99:99";
             this.m_total_time_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // m_playing_trackBar
+            // 
+            this.m_playing_trackBar.BorderColor = System.Drawing.Color.Gray;
+            this.m_playing_trackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_playing_trackBar.Location = new System.Drawing.Point(51, 3);
+            this.m_playing_trackBar.Max = 10;
+            this.m_playing_trackBar.Min = 0;
+            this.m_playing_trackBar.Name = "m_playing_trackBar";
+            this.m_playing_trackBar.PointerCircleSize = 20;
+            this.m_playing_trackBar.PointerInCircleDistence = 3;
+            this.m_playing_trackBar.PointerInColor = System.Drawing.Color.White;
+            this.m_playing_trackBar.PointerOutColor = System.Drawing.Color.Black;
+            this.m_playing_trackBar.PointerRectSize = new System.Drawing.Size(10, 20);
+            this.m_playing_trackBar.PointerStyle = musicP_Layer.TrackBar_C.PointerStyleOption.rectangle;
+            this.m_playing_trackBar.Size = new System.Drawing.Size(380, 40);
+            this.m_playing_trackBar.TabIndex = 5;
+            this.m_playing_trackBar.Text = "trackBar_C1";
+            this.m_playing_trackBar.Val = 0;
+            this.m_playing_trackBar.Scroll += new System.EventHandler(this.m_playing_trackBar_Scroll);
+            this.m_playing_trackBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.m_playing_trackBar_MouseDown);
+            this.m_playing_trackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.m_playing_trackBar_MouseUp);
             // 
             // m_title_label
             // 
@@ -486,6 +546,26 @@
             this.c_mute_button.UseVisualStyleBackColor = true;
             this.c_mute_button.Click += new System.EventHandler(this.mute_event);
             // 
+            // c_volume_trackBar
+            // 
+            this.c_volume_trackBar.BorderColor = System.Drawing.Color.Gray;
+            this.c_volume_trackBar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.c_volume_trackBar.Location = new System.Drawing.Point(201, 3);
+            this.c_volume_trackBar.Max = 100;
+            this.c_volume_trackBar.Min = 0;
+            this.c_volume_trackBar.Name = "c_volume_trackBar";
+            this.c_volume_trackBar.PointerCircleSize = 20;
+            this.c_volume_trackBar.PointerInCircleDistence = 3;
+            this.c_volume_trackBar.PointerInColor = System.Drawing.Color.White;
+            this.c_volume_trackBar.PointerOutColor = System.Drawing.Color.Black;
+            this.c_volume_trackBar.PointerRectSize = new System.Drawing.Size(10, 20);
+            this.c_volume_trackBar.PointerStyle = musicP_Layer.TrackBar_C.PointerStyleOption.rectangle;
+            this.c_volume_trackBar.Size = new System.Drawing.Size(87, 64);
+            this.c_volume_trackBar.TabIndex = 4;
+            this.c_volume_trackBar.Text = "trackBar_C1";
+            this.c_volume_trackBar.Val = 100;
+            this.c_volume_trackBar.Scroll += new System.EventHandler(this.c_volume_trackBar_Scroll);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -540,48 +620,6 @@
             this.file_chooser.Multiselect = true;
             this.file_chooser.FileOk += new System.ComponentModel.CancelEventHandler(this.file_chooser_FileOk);
             // 
-            // m_playing_trackBar
-            // 
-            this.m_playing_trackBar.BorderColor = System.Drawing.Color.Gray;
-            this.m_playing_trackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_playing_trackBar.Location = new System.Drawing.Point(51, 3);
-            this.m_playing_trackBar.Max = 10;
-            this.m_playing_trackBar.Min = 0;
-            this.m_playing_trackBar.Name = "m_playing_trackBar";
-            this.m_playing_trackBar.PointerCircleSize = 20;
-            this.m_playing_trackBar.PointerInCircleDistence = 3;
-            this.m_playing_trackBar.PointerInColor = System.Drawing.Color.White;
-            this.m_playing_trackBar.PointerOutColor = System.Drawing.Color.Black;
-            this.m_playing_trackBar.PointerRectSize = new System.Drawing.Size(10, 20);
-            this.m_playing_trackBar.PointerStyle = musicP_Layer.TrackBar_C.PointerStyleOption.rectangle;
-            this.m_playing_trackBar.Size = new System.Drawing.Size(380, 40);
-            this.m_playing_trackBar.TabIndex = 5;
-            this.m_playing_trackBar.Text = "trackBar_C1";
-            this.m_playing_trackBar.Val = 0;
-            this.m_playing_trackBar.Scroll += new System.EventHandler(this.m_playing_trackBar_Scroll);
-            this.m_playing_trackBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.m_playing_trackBar_MouseDown);
-            this.m_playing_trackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.m_playing_trackBar_MouseUp);
-            // 
-            // c_volume_trackBar
-            // 
-            this.c_volume_trackBar.BorderColor = System.Drawing.Color.Gray;
-            this.c_volume_trackBar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.c_volume_trackBar.Location = new System.Drawing.Point(201, 3);
-            this.c_volume_trackBar.Max = 100;
-            this.c_volume_trackBar.Min = 0;
-            this.c_volume_trackBar.Name = "c_volume_trackBar";
-            this.c_volume_trackBar.PointerCircleSize = 20;
-            this.c_volume_trackBar.PointerInCircleDistence = 3;
-            this.c_volume_trackBar.PointerInColor = System.Drawing.Color.White;
-            this.c_volume_trackBar.PointerOutColor = System.Drawing.Color.Black;
-            this.c_volume_trackBar.PointerRectSize = new System.Drawing.Size(10, 20);
-            this.c_volume_trackBar.PointerStyle = musicP_Layer.TrackBar_C.PointerStyleOption.rectangle;
-            this.c_volume_trackBar.Size = new System.Drawing.Size(87, 64);
-            this.c_volume_trackBar.TabIndex = 4;
-            this.c_volume_trackBar.Text = "trackBar_C1";
-            this.c_volume_trackBar.Val = 100;
-            this.c_volume_trackBar.Scroll += new System.EventHandler(this.c_volume_trackBar_Scroll);
-            // 
             // main_win
             // 
             this.AllowDrop = true;
@@ -620,6 +658,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -673,6 +712,8 @@
         private System.Windows.Forms.ToolStripMenuItem OpendirToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private TrackBar_C m_playing_trackBar;
+        private System.Windows.Forms.TabPage tabPage1;
+        private lrcP_Layer.LrcD_Isplay lrcD_Isplay1;
     }
 }
 

@@ -97,6 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="explorer.cs" />
+    <Compile Include="LrcD_Isplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="lyric_reader.cs" />
     <Compile Include="main_win.cs">
       <SubType>Form</SubType>
     </Compile>

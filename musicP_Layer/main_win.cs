@@ -10,35 +10,22 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
+using lrcP_Layer;
 
 namespace musicP_Layer
 {
     public partial class main_win : Form
     {
-        bool debugmode = true;
-        public static string[] startUp_files = new string[0];
+
+
         public main_win()
         {
             debug_action(Console.WriteLine, "debug mode on");
             InitializeComponent();
         }
 
-        Color CForegroundColor = Color.BurlyWood;
-        Color CBackgroundColor = Color.Peru;
-        Color CFontColorDark = Color.Black;
-        Color CFontColorLight = Color.White;
-        Color CHighlightColor = SystemColors.Highlight;
-
-        bool isTitlePanelDragged = false;
-        bool isTopPanelDragged = false;
-        bool isLeftPanelDragged = false;
-        bool isRightPanelDragged = false;
-        bool isDownPanelDragged = false;
-        bool use_custom_border = false;
-        Point pre_point, ori_point;
-        Size ori_size;
-
-
+        #region Debug mode function
+        bool debugmode = true;
         public void debug_action<T>(Action<T> a, T t)
         {
             if (debugmode)
@@ -46,15 +33,25 @@ namespace musicP_Layer
                 a.Invoke(t);
             }
         }
-        public void debug_action<T1,T2>(Action<T1,T2> a, T1 t1,T2 t2 )
+        public void debug_action<T1, T2>(Action<T1, T2> a, T1 t1, T2 t2)
         {
             if (debugmode)
             {
-                a.Invoke(t1,t2);
+                a.Invoke(t1, t2);
             }
         }
+        #endregion
+
+        #region Colors Set & startUp & Musiclist Init
+        public static string[] startUp_files = new string[0];
         private static musiclistCollection _mlc = new musiclistCollection();
         public static musiclistCollection mlc { get { return _mlc; } }
+        Color CForegroundColor = Color.BurlyWood;
+        Color CBackgroundColor = Color.Peru;
+        Color CFontColorDark = Color.Black;
+        Color CFontColorLight = Color.White;
+        Color CHighlightColor = SystemColors.Highlight;
+        bool use_custom_border = false;
         private void start_up_change_color(object sender, EventArgs e)
         {
             if (!use_custom_border)
@@ -118,7 +115,7 @@ namespace musicP_Layer
             c_play_button.ForeColor = CFontColorDark;
             c_stop_button.ForeColor = CFontColorDark;
             c_mute_button.ForeColor = CFontColorDark;
-             
+
             tab_pic.ForeColor = CFontColorLight;
             tab_list.ForeColor = CFontColorLight;
             listView1.ForeColor = CFontColorLight;
@@ -127,9 +124,9 @@ namespace musicP_Layer
             m_playing_trackBar.PointerOutColor = CFontColorDark;
 
 
-            
+
             ListViewItem[] trans = new ListViewItem[mlc.names.Count];
-            for(int i = 0; i < trans.Length; i++)
+            for (int i = 0; i < trans.Length; i++)
             {
                 trans[i] = new ListViewItem(mlc.names[i]);
             }
@@ -138,13 +135,13 @@ namespace musicP_Layer
             trans = new ListViewItem[mlc.collection[0].titles.Count];
             for (int i = 0; i < trans.Length; i++)
             {
-                trans[i] = new ListViewItem("【"+ mlc.collection[0].albums[i]+"】"+ mlc.collection[0].titles[i]+"【"+mlc.collection[0].artists[i]+"】");
+                trans[i] = new ListViewItem("【" + mlc.collection[0].albums[i] + "】" + mlc.collection[0].titles[i] + "【" + mlc.collection[0].artists[i] + "】");
             }
             listView2.Items.AddRange(trans);
 
             if (startUp_files.Length != 0)
             {
-                foreach(var i in startUp_files)
+                foreach (var i in startUp_files)
                 {
                     add_music(new FileInfo(i));
                 }
@@ -152,7 +149,16 @@ namespace musicP_Layer
                     prepare_playing(startUp_files[0]);
             }
         }
+        #endregion
 
+        #region Custome Border Event
+        Point pre_point, ori_point;
+        Size ori_size;
+        bool isTitlePanelDragged = false;
+        bool isTopPanelDragged = false;
+        bool isLeftPanelDragged = false;
+        bool isRightPanelDragged = false;
+        bool isDownPanelDragged = false;
         private void border_panel_MouseUp(object sender, MouseEventArgs e)
         {
             isTitlePanelDragged = false;
@@ -165,7 +171,7 @@ namespace musicP_Layer
         private void border_panel_MouseDown(object sender, MouseEventArgs e)
         {
             var pp = (sender as Panel);
-            if(pp == title_panel||pp==flowLayoutPanel1||pp==tableLayoutPanel1||(sender as Label)==title_label)
+            if (pp == title_panel || pp == flowLayoutPanel1 || pp == tableLayoutPanel1 || (sender as Label) == title_label)
             {
                 isTitlePanelDragged = true;
             }
@@ -195,7 +201,7 @@ namespace musicP_Layer
             var pp = sender as Panel;
             if (isDownPanelDragged || isRightPanelDragged || isTopPanelDragged || isLeftPanelDragged)
             {
-                if (pp.Cursor == Cursors.SizeNS )// [ | ]
+                if (pp.Cursor == Cursors.SizeNS)// [ | ]
                 {
                     if (pp == down_panel)
                     {
@@ -207,7 +213,7 @@ namespace musicP_Layer
                         if (this.Size != this.MinimumSize)
                             this.Location = new Point(ori_point.X, ori_point.Y + MousePosition.Y - pre_point.Y);
                     }
-                    
+
                 }
                 else if (pp.Cursor == Cursors.SizeWE)// [ - ]
                 {
@@ -218,7 +224,7 @@ namespace musicP_Layer
                     else if (pp == left_panel)
                     {
                         this.Size = new Size(ori_size.Width - (MousePosition.X - pre_point.X), ori_size.Height);
-                        if(this.Size != this.MinimumSize)
+                        if (this.Size != this.MinimumSize)
                             this.Location = new Point(ori_point.X + MousePosition.X - pre_point.X, ori_point.Y);
                     }
                 }
@@ -227,7 +233,8 @@ namespace musicP_Layer
                     if (pp == right_panel || pp == down_panel)
                     {
                         this.Size = new Size(ori_size.Width + MousePosition.X - pre_point.X, ori_size.Height + MousePosition.Y - pre_point.Y);
-                    }else if (pp == left_panel || pp == top_panel)
+                    }
+                    else if (pp == left_panel || pp == top_panel)
                     {
                         this.Size = new Size(ori_size.Width - (MousePosition.X - pre_point.X), ori_size.Height - (MousePosition.Y - pre_point.Y));
                         if (this.Size == this.MinimumSize) { }
@@ -255,7 +262,7 @@ namespace musicP_Layer
                         if (this.Size == this.MinimumSize) { }
                         else if (this.Size.Width == this.MinimumSize.Width) { }
                         else
-                            this.Location = new Point(ori_point.X + MousePosition.X - pre_point.X, ori_point.Y );
+                            this.Location = new Point(ori_point.X + MousePosition.X - pre_point.X, ori_point.Y);
                     }
                 }
             }
@@ -338,11 +345,13 @@ namespace musicP_Layer
         private void min_the_app_event(object sender, EventArgs e)
         {
             //this.FormBorderStyle = FormBorderStyle.Sizable;
-            AnimateWindow(this.Handle, 300, 0x00080000| 0x00010000);
+            AnimateWindow(this.Handle, 300, 0x00080000 | 0x00010000);
             this.WindowState = FormWindowState.Minimized;
             //this.FormBorderStyle = FormBorderStyle.None;
         }
+        #endregion
 
+        #region file_chooser event & addmusic
         private void file_chooser_FileOk(object sender, CancelEventArgs e)
         {
             foreach (var i in file_chooser.FileNames)
@@ -351,12 +360,9 @@ namespace musicP_Layer
                 mlc.CurrenList.playing_song_index = mlc.CurrenList.musicfiles.Count;
                 add_music(fi = new FileInfo(i));
             }
-            if (P_Layer.player == null)
-            {
-                prepare_playing(file_chooser.FileName);
-            }
+            prepare_playing(file_chooser.FileName);
         }
-        public void add_music( FileInfo fi)
+        public void add_music(FileInfo fi)
         {
             var mi = new musicinfo(fi);
             if (!mlc.collection[mlc.now_list_index].check_if_existed(mi))
@@ -372,7 +378,7 @@ namespace musicP_Layer
         public void add_music(FileInfo[] fi)
         {
             var mi = musicinfo.fi2mi(fi);
-            foreach(var i in mi)
+            foreach (var i in mi)
             {
                 if (!mlc.collection[mlc.now_list_index].check_if_existed(i))
                 {
@@ -387,22 +393,53 @@ namespace musicP_Layer
             }
 
         }
+        #endregion
+
+        #region preparing playing & stop
         Thread upt_trd;
         public static musicP P_Layer = new musicP();
-        private void prepare_playing( string name)
+        private void prepare_playing(string name)
         {
             prepare_stop();
+            FileInfo fi = new FileInfo(name);
+            fi = new FileInfo(fi.FullName.Replace(fi.Extension, ".lrc"));
+            if (fi.Exists)
+            {
+                lyric_reader lr = new lyric_reader(fi);
+                lrcD_Isplay1.lyric = lr.lyrics.ToArray();
+                lrcD_Isplay1.time = lr.times.ToArray();
+            }
+            else
+            {
+                Console.WriteLine("lrc reading failed");
+                lrcD_Isplay1.lyric = null;
+                lrcD_Isplay1.time = null;
+            }
+
             P_Layer.open_play_file(new FileInfo(name));
             P_Layer.player.PlaybackStopped += Player_PlaybackStopped;
             m_title_label.Text = "Title: " + P_Layer.tag.Tag.Title;
             if (P_Layer.tag.Tag.Performers.Length > 0)
+            {
                 m_artist_label.Text = "Artist: " + P_Layer.tag.Tag.Performers[0];
+                this.Text = String.Format("{0} - {1}", P_Layer.tag.Tag.Title, P_Layer.tag.Tag.Performers[0]);
+            }
+            else
+            {
+                m_artist_label.Text = "Artist: " + "Unknow";
+                this.Text = String.Format("{0}", P_Layer.tag.Tag.Title);
+            }
+
             m_total_time_label.Text = String.Format("{0:mm}:{0:ss}", P_Layer.reader.TotalTime);
             if (P_Layer.tag.Tag.Pictures.Length > 0)
+            {
                 m_image_box.Image = Image.FromStream(new MemoryStream(P_Layer.tag.Tag.Pictures[0].Data.Data));
-            else
+            }else
+            {
                 m_image_box.Image = null;
+            }
             m_playing_trackBar.Max = (int)(P_Layer.reader.TotalTime.TotalMilliseconds);
+
             c_play_button.Text = "⏸";
             (upt_trd = new Thread(time_update)).Start();
         }
@@ -412,11 +449,12 @@ namespace musicP_Layer
             if (next != null)
             {
                 prepare_playing(next.FullName);
-            }else
+            }
+            else
             {
                 prepare_stop();
             }
-            
+
         }
 
         private void prepare_stop()
@@ -426,27 +464,46 @@ namespace musicP_Layer
             c_play_button.Text = "▶︎";
             P_Layer.stop_play_file();
             m_title_label.Text = "Title: ";
-            m_artist_label.Text = "Artist: " ;
+            m_artist_label.Text = "Artist: ";
             m_total_time_label.Text = "99:99";
             m_image_box.Image = null;
             m_playing_time_label.Text = "00:00";
             m_playing_trackBar.Val = 0;
-
+            lrcD_Isplay1.time = null;
+            lrcD_Isplay1.lyric = null;
+            this.Text = "musicP_Layer";
         }
         private void time_update()
         {
-            while ( true )
+            while (true)
             {
                 if (!traceBar_draged)
                 {
-                    LabelSetText(m_playing_time_label, String.Format("{0:mm}:{0:ss}", (P_Layer.reader.CurrentTime< P_Layer.reader.TotalTime)? P_Layer.reader.CurrentTime: P_Layer.reader.TotalTime));
+                    LabelSetText(m_playing_time_label, String.Format("{0:mm}:{0:ss}", (P_Layer.reader.CurrentTime < P_Layer.reader.TotalTime) ? P_Layer.reader.CurrentTime : P_Layer.reader.TotalTime));
                     var ttt = (int)(P_Layer.reader.CurrentTime.TotalMilliseconds);
                     BarSetVal(m_playing_trackBar, (ttt > 0 && ttt < m_playing_trackBar.Max) ? ttt : m_playing_trackBar.Max);
+                    BarSetTime(lrcD_Isplay1, P_Layer.reader.CurrentTime);
                     Thread.Sleep(200);
                 }
             }
         }
-        delegate void LabelSetTextCallback(Label l,string text);
+        delegate void BarSetTimeCallback(LrcD_Isplay t, TimeSpan val);
+        private void BarSetTime(LrcD_Isplay t, TimeSpan val)
+        {
+            //InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (t.InvokeRequired)
+            {
+                BarSetTimeCallback d = new BarSetTimeCallback(BarSetTime);
+                this.Invoke(d, new object[] { t, val });
+            }
+            else
+            {
+                t.nowTime = val;
+            }
+        }
+        delegate void LabelSetTextCallback(Label l, string text);
         private void LabelSetText(Label l, string text)
         {
             //InvokeRequired required compares the thread ID of the
@@ -455,14 +512,13 @@ namespace musicP_Layer
             if (l.InvokeRequired)
             {
                 LabelSetTextCallback d = new LabelSetTextCallback(LabelSetText);
-                this.Invoke(d, new object[] { l,text });
+                this.Invoke(d, new object[] { l, text });
             }
             else
             {
                 l.Text = text;
             }
         }
-
         delegate void BarSetValCallback(TrackBar_C t, int val);
         private void BarSetVal(TrackBar_C t, int val)
         {
@@ -479,21 +535,23 @@ namespace musicP_Layer
                 t.Val = val;
             }
         }
+        #endregion
 
+        #region file_dragdrop event
         private void main_win_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             List<FileInfo> fi = new List<FileInfo>();
-            foreach(var f in files)
+            foreach (var f in files)
             {
-                if(f.EndsWith(".mp3")|| f.EndsWith(".wav")|| f.EndsWith(".flac"))
-                fi.Add(new FileInfo(f));
+                if (f.EndsWith(".mp3") || f.EndsWith(".wav") || f.EndsWith(".flac"))
+                    fi.Add(new FileInfo(f));
             }
             mlc.CurrenList.playing_song_index = mlc.CurrenList.musicfiles.Count;
             add_music(fi.ToArray());
             if (P_Layer.player == null)
                 prepare_playing(fi[0].FullName);
-                
+
         }
         private void main_win_DragEnter(object sender, DragEventArgs e)
         {
@@ -502,7 +560,9 @@ namespace musicP_Layer
                 e.Effect = DragDropEffects.All;
             }
         }
+        #endregion
 
+        #region control_tool_event
         private void open_file_browser(object sender, EventArgs e)
         {
             file_chooser.ShowDialog();
@@ -511,12 +571,12 @@ namespace musicP_Layer
         {
             if (P_Layer.player != null)
             {
-                if(P_Layer.player.PlaybackState == NAudio.Wave.PlaybackState.Playing)
+                if (P_Layer.player.PlaybackState == NAudio.Wave.PlaybackState.Playing)
                 {
                     P_Layer.player.Pause();
                     c_play_button.Text = "▶︎";
                 }
-                else if(P_Layer.player.PlaybackState == NAudio.Wave.PlaybackState.Paused)
+                else if (P_Layer.player.PlaybackState == NAudio.Wave.PlaybackState.Paused)
                 {
                     P_Layer.player.Play();
                     c_play_button.Text = "⏸";
@@ -527,37 +587,11 @@ namespace musicP_Layer
                 prepare_playing(P_Layer.last_selected_music.FullName);
                 c_play_button.Text = "⏸";
             }
-            else {
+            else
+            {
                 open_file_browser(Handle, e);
             };
         }
-
-        bool traceBar_draged = false;
-        TimeSpan ori_time;
-        int ori_trace_val;
-        private void m_playing_trackBar_Scroll(object sender, EventArgs e)
-        {
-
-        }
-        private void m_playing_trackBar_MouseUp(object sender, MouseEventArgs e)
-        {
-            if(ori_trace_val != m_playing_trackBar.Val)
-            {
-                if(P_Layer.reader != null)
-                    P_Layer.reader.CurrentTime = new TimeSpan(0, 0, 0, 0, m_playing_trackBar.Val);
-            }
-            traceBar_draged = false;
-        }
-        private void m_playing_trackBar_MouseDown(object sender, MouseEventArgs e)
-        {
-            traceBar_draged = true;
-            if (P_Layer.reader != null)
-            {
-                ori_time = P_Layer.reader.CurrentTime;
-                ori_trace_val = m_playing_trackBar.Val;
-            }
-        }
-
         private void stop_music_event(object sender, EventArgs e)
         {
             if (P_Layer.player != null)
@@ -574,6 +608,58 @@ namespace musicP_Layer
                 P_Layer.reader.Volume = P_Layer.c_volume;
             }
         }
+
+
+        bool traceBar_draged = false;
+        TimeSpan ori_time;
+        int ori_trace_val;
+        private void m_playing_trackBar_Scroll(object sender, EventArgs e)
+        {
+
+        }
+        private void m_playing_trackBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (ori_trace_val != m_playing_trackBar.Val)
+            {
+                if (P_Layer.reader != null)
+                    P_Layer.reader.CurrentTime = new TimeSpan(0, 0, 0, 0, m_playing_trackBar.Val);
+            }
+            traceBar_draged = false;
+        }
+        private void m_playing_trackBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            traceBar_draged = true;
+            if (P_Layer.reader != null)
+            {
+                ori_time = P_Layer.reader.CurrentTime;
+                ori_trace_val = m_playing_trackBar.Val;
+            }
+        }
+
+
+        TimeSpan ori_lrc_val;
+        private void lrcD_Isplay1_MouseDown(object sender, MouseEventArgs e)
+        {
+            traceBar_draged = true;
+            if (P_Layer.reader != null)
+            {
+                ori_time = P_Layer.reader.CurrentTime;
+                ori_lrc_val = lrcD_Isplay1.nowTime;
+            }
+        }
+
+        private void lrcD_Isplay1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (ori_lrc_val != lrcD_Isplay1.nowTime)
+            {
+                if (P_Layer.reader != null)
+                    P_Layer.reader.CurrentTime = lrcD_Isplay1.nowTime;
+            }
+            traceBar_draged = false;
+        }
+
+
+
         private void listView2_DoubleClick(object sender, EventArgs e)
         {
             if (listView2.SelectedItems.Count == 1)
@@ -635,6 +721,6 @@ namespace musicP_Layer
             }
 
         }
-
+    #endregion
     }
 }

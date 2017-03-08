@@ -12,3 +12,17 @@ D:\Program_works\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.csproj.Gene
 D:\Program_works\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.exe
 D:\Program_works\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.pdb
 D:\Program_works\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.csprojResolveAssemblyReference.cache
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\musicP_Layer.exe.config
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\musicP_Layer.exe
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\musicP_Layer.pdb
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\NAudio.dll
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\policy.2.0.taglib-sharp.dll
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\taglib-sharp.dll
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\NAudio.xml
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\bin\Debug\policy.2.0.taglib-sharp.config
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.main_win.resources
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.Properties.Resources.resources
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.csproj.GenerateResource.Cache
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.exe
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.pdb
+D:\Program_works\vs2017\musicP_Layer_cs\musicP_Layer\obj\Debug\musicP_Layer.csprojResolveAssemblyReference.cache
